@@ -1,0 +1,63 @@
+{
+  "name": "testcap",
+  "version": "1.0.0",
+  "description": "A simple CAP project.",
+  "repository": "<Add your repository here>",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@sap/cds": "^8",
+    "express": "^4",
+    "@cap-js/hana": "^1",
+    "@cap-js/postgres": "^1",
+    "@google-cloud/storage": "^7.12.1",
+    "@google-cloud/storage-control": "^0.2.0",
+    "@sap-cloud-sdk/http-client": "^3.20.0",
+    "@sap-cloud-sdk/resilience": "^3.20.0",
+    "@sap/cds-compiler": "5.4.0",
+    "@sap/cds-hana": "^2",
+    "@sap/xssec": "^3.3.5",
+    "axios": "^1.7.9",
+    "cors": "^2.8.5",
+    "form-data": "^4.0.1",
+    "fs": "^0.0.1-security",
+    "jwt-decode": "^4.0.0",
+    "multer": "^1.4.5-lts.1",
+    "passport": "^0.6.0",
+    "path": "^0.12.7",
+    "sequelize": "^6.37.3",
+    "uuid": "^10.0.0"
+  },
+  "devDependencies": {
+    "@cap-js/cds-types": "^0.7.0",
+    "@cap-js/sqlite": "^1",
+    "@sap/cds-dk": "^8",
+    "rimraf": "^5.0.5",
+    "mbt": "^1.2.29"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "watch-project1testcap": "cds watch --open project1testcap/webapp/index.html?sap-ui-xx-viewCache=false",
+    "undeploy": "cf undeploy testcap --delete-services --delete-service-keys --delete-service-brokers",
+    "build": "rimraf resources mta_archives && mbt build --mtar archive",
+    "deploy": "cf deploy mta_archives/archive.mtar --retries 1"
+  },
+  "cds": {
+    "sql": {
+      "native_hana_associations": false
+    },
+    "requires": {
+      "auth": "dummy",
+      "vobBpaTrigger": {
+        "kind": "odata-v2",
+        "credentials": {
+          "destination": "vobBpaTrigger",
+          "requestTimeout": 120000
+        }
+      }
+    }
+  },
+  "sapux": [
+    "app/project1testcap"
+  ]
+}
